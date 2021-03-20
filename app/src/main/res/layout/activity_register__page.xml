@@ -167,6 +167,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:background="@drawable/button_bg"
+        android:onClick="onClickButton"
         android:text="Regıster"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"

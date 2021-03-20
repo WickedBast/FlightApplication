@@ -53,27 +53,31 @@ public class Register_Page extends AppCompatActivity {
         String number1 = number.getText().toString();
         String password1 = password.getText().toString();
         String passwordA1 = passwordA.getText().toString();
-        if (password1.length()>= 6) {
-            if (password1.equals(passwordA1)) {
-                mAuth.createUserWithEmailAndPassword(mail1, password1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            mDatabase.child("users").child(number1).child("name").setValue(name1);
-                            mDatabase.child("users").child(number1).child("surname").setValue(surname1);
-                            mDatabase.child("users").child(number1).child("mail").setValue(mail1);
-                            mDatabase.child("users").child(number1).child("number").setValue(number1);
-                            Toast.makeText(Register_Page.this, "User successfully created", Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(Register_Page.this, "User could not be created, Please try again", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-            } else {
-                Toast.makeText(Register_Page.this, "Passwords did not match", Toast.LENGTH_SHORT).show();
-            }
+        if (name1.isEmpty() || surname1.isEmpty() || mail1.isEmpty() || number1.isEmpty() || password1.isEmpty() || passwordA1.isEmpty()) {
+            Toast.makeText(Register_Page.this, "Please fill in the blank spaces", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(Register_Page.this, "Please make your password bigger than 5 character", Toast.LENGTH_SHORT).show();
+            if (password1.length() >= 6) {
+                if (password1.equals(passwordA1)) {
+                    mAuth.createUserWithEmailAndPassword(mail1, password1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                mDatabase.child("users").child(number1).child("name").setValue(name1);
+                                mDatabase.child("users").child(number1).child("surname").setValue(surname1);
+                                mDatabase.child("users").child(number1).child("mail").setValue(mail1);
+                                mDatabase.child("users").child(number1).child("number").setValue(number1);
+                                Toast.makeText(Register_Page.this, "User successfully created", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(Register_Page.this, "User could not be created, Please try again", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                } else {
+                    Toast.makeText(Register_Page.this, "Passwords did not match", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(Register_Page.this, "Please make your password bigger than 5 character", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

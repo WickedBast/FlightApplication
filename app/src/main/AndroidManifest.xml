@@ -10,7 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FlightApplication">
         <activity android:name=".Register_Page"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".Login_Page"></activity>
+        <activity android:name=".HomePage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

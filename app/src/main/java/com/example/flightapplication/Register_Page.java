@@ -70,6 +70,8 @@ public class Register_Page extends AppCompatActivity {
                                 mDatabase.child("users").child(number1).child("mail").setValue(mail1);
                                 mDatabase.child("users").child(number1).child("number").setValue(number1);
                                 Toast.makeText(Register_Page.this, "User successfully created", Toast.LENGTH_LONG).show();
+                                Intent loginIntent = new Intent(Register_Page.this,Login_Page.class);
+                                startActivity(loginIntent);
                             } else {
                                 Toast.makeText(Register_Page.this, "User could not be created, Please try again", Toast.LENGTH_LONG).show();
                             }

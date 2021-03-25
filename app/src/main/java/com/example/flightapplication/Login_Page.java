@@ -44,7 +44,7 @@ public class Login_Page extends AppCompatActivity {
                 String email = loginEmail.getText().toString();
                 String password = loginPassword.getText().toString();
 
-                if (!TextUtils.isEmpty(email) || !TextUtils.isEmpty(password)) {
+                 if (!TextUtils.isEmpty(email) || !TextUtils.isEmpty(password)) {
                     loginProgress.setTitle("Signing in");
                     loginProgress.setMessage("Please wait, Signing in");
                     loginProgress.setCanceledOnTouchOutside(false);
@@ -52,6 +52,9 @@ public class Login_Page extends AppCompatActivity {
                     login_user(email, password);
 
 
+                }
+                else {
+                    Toast.makeText(Login_Page.this, "Please fill in the blank spaces", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -67,10 +70,12 @@ public class Login_Page extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     loginProgress.dismiss();
                     Toast.makeText(Login_Page.this, "Login successful", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Login_Page.this, HomePage.class);
+                    Intent intent = new Intent(Login_Page.this, UserHomePage.class);
                     startActivity(intent);
                 }else{
-                    Toast.makeText(Login_Page.this, "Login failed", Toast.LENGTH_SHORT).show();
+                    loginProgress.dismiss();
+                    Toast.makeText(Login_Page.this, "Login failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+
                 }
             }
         });

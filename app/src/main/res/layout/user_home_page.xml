@@ -12,8 +12,9 @@
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/textInputEditText"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:layout_marginTop="176dp"
+        android:layout_marginEnd="24dp"
         android:background="@drawable/input_bg"
         android:drawableLeft="@drawable/ic_baseline_location_on_24"
         android:drawablePadding="6dp"
@@ -24,17 +25,15 @@
         android:paddingBottom="10dp"
         android:textColor="#FFFFFF"
         android:textColorHint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/editText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="@+id/buttonLogOut"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/editText"
         android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="264dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/input_bg"
         android:drawableLeft="@drawable/ic_baseline_airplanemode_active_24"
         android:drawablePadding="6dp"
@@ -45,30 +44,32 @@
         android:paddingBottom="10dp"
         android:textColor="#FFFFFF"
         android:textColorHint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/textInputEditText"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textInputEditText"
+        app:layout_constraintTop_toBottomOf="@+id/textInputEditText" />
 
     <TextView
         android:id="@+id/Date"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/input_bg"
 
         android:drawableLeft="@drawable/ic_baseline_calendar_today_24"
         android:drawablePadding="6dp"
-        android:hint="Depart On"
+        android:hint="Departs On"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingRight="20dp"
         android:paddingBottom="10dp"
         android:textColor="@color/white"
+        android:textColorHint="#FFFFFF"
         android:textSize="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editText"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/editText"
         app:layout_constraintTop_toBottomOf="@+id/editText"
         tools:textColorHint="@color/white"
         tools:textSize="18sp" />
@@ -77,7 +78,7 @@
         android:id="@+id/buttonFind"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="100dp"
         android:background="@drawable/button_bg"
         android:text="FIND"
         android:textColor="#000000"
@@ -90,20 +91,21 @@
         android:id="@+id/buttonLogOut"
         android:layout_width="67dp"
         android:layout_height="70dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="328dp"
         android:background="@drawable/ic_baseline_logout"
         android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintEnd_toStartOf="@+id/textView4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonUser"
         android:layout_width="67dp"
         android:layout_height="70dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/ic_baseline_person_24"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
@@ -111,19 +113,17 @@
 
     <Spinner
         android:id="@+id/statu"
-        android:layout_width="170dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="44dp"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+
+        android:layout_marginTop="24dp"
+
 
         android:background="@drawable/input_bg"
-
-
         android:entries="@array/statu"
         android:paddingLeft="10dp"
         android:spinnerMode="dropdown"
-        app:layout_constraintEnd_toStartOf="@+id/checkBox"
-        app:layout_constraintHorizontal_bias="0.38"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/Date"
         app:layout_constraintTop_toBottomOf="@+id/Date"
         tools:background="@drawable/input_bg"
         tools:contextClickable="false" />
@@ -146,6 +146,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:text="UserName"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
         app:layout_constraintEnd_toStartOf="@+id/buttonUser"
         app:layout_constraintHorizontal_bias="0.929"
         app:layout_constraintStart_toStartOf="parent"
@@ -154,9 +156,9 @@
     <CheckBox
         android:id="@+id/checkBox"
         style="@android:style/Widget.Material.CompoundButton.CheckBox"
-        android:layout_width="170dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="44dp"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/input_bg"
         android:button="@null"
         android:drawableLeft="@drawable/checkbox"
@@ -165,13 +167,9 @@
         android:text="Non Stop"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.879"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/Date"
         app:layout_constraintTop_toBottomOf="@+id/Date"
         tools:scrollbarStyle="insideOverlay" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

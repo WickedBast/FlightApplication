@@ -24,7 +24,7 @@
         android:paddingRight="20dp"
         android:paddingBottom="10dp"
         android:textColor="#FFFFFF"
-        android:textColorHint="@color/white"
+        android:textColorHint="@color/white2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/buttonLogOut"
         app:layout_constraintTop_toTopOf="parent" />

@@ -35,7 +35,7 @@ public class Login_Page extends AppCompatActivity {
         TextView btn = findViewById(R.id.textViewtoRegister);
         btn.setOnClickListener(v -> startActivity(new Intent(Login_Page.this, Register_Page.class)));
 
-        Button btn2 = findViewById(R.id.buttonHome);
+        Button btn2 = findViewById(R.id.buttonBackR);
         btn2.setOnClickListener(v -> startActivity(new Intent(Login_Page.this, HomePage.class)));
 
         loginButton.setOnClickListener(new View.OnClickListener() {

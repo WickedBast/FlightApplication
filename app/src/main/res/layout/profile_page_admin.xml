@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/aa"
-    tools:context=".Register_Page">
+    tools:context=".ProfilePageAdmin">
 
     <EditText
         android:id="@+id/inputFrom"
@@ -15,8 +15,11 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/input_bg"
+        android:clickable="false"
+        android:cursorVisible="false"
         android:drawableLeft="@drawable/ic_baseline_person"
         android:drawablePadding="10dp"
+        android:editable="false"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
@@ -37,8 +40,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/input_bg"
+        android:clickable="false"
+        android:cursorVisible="false"
         android:drawableLeft="@drawable/ic_baseline_person"
         android:drawablePadding="10dp"
+        android:editable="false"
         android:ems="10"
         android:hint="Surname"
         android:inputType="textPersonName"
@@ -90,6 +96,7 @@
         android:paddingTop="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
+        android:phoneNumber="true"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/inputDate"
@@ -112,6 +119,7 @@
         android:paddingTop="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
+        android:password="true"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/inputNumber"
@@ -134,6 +142,7 @@
         android:paddingTop="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
+        android:password="true"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/inputPassword"
@@ -143,35 +152,22 @@
 
     <TextView
         android:id="@+id/textAddRoute"
-        android:layout_width="140dp"
+        android:layout_width="240dp"
         android:layout_height="53dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:text="Register"
+        android:text="Admin Profile"
         android:textColor="#FFFFFF"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/buttonBackR"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.057" />
-
-    <TextView
-        android:id="@+id/textViewAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Already have an account?"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonAddR" />
+        app:layout_constraintVertical_bias="0.109" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonAddR"
@@ -179,8 +175,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:background="@drawable/button_bg"
-        android:onClick="onClickButton"
-        android:text="Regıster"
+        android:text="Save"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -200,5 +195,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

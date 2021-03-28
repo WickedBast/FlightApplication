@@ -33,19 +33,19 @@ public class Register_Page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register__page);
-        name = (EditText) findViewById(R.id.inputName);
-        surname = (EditText) findViewById(R.id.inputSurname);
-        mail = (EditText) findViewById(R.id.inputEmail);
+        name = (EditText) findViewById(R.id.inputFrom);
+        surname = (EditText) findViewById(R.id.inputTo);
+        mail = (EditText) findViewById(R.id.inputDate);
         number = (EditText) findViewById(R.id.inputNumber);
         password = (EditText) findViewById(R.id.inputPassword);
         passwordA = (EditText) findViewById(R.id.inputPasswordA);
-        buttonSign = findViewById(R.id.buttonRegister);
+        buttonSign = findViewById(R.id.buttonAddR);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         TextView btn = findViewById(R.id.textViewAccount);
         btn.setOnClickListener(v -> startActivity(new Intent(Register_Page.this, Login_Page.class)));
 
-        Button btn2 = findViewById(R.id.buttonHome);
+        Button btn2 = findViewById(R.id.buttonBackR);
         btn2.setOnClickListener(v -> startActivity(new Intent(Register_Page.this,HomePage.class)));
     }
 

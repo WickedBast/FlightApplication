@@ -12,6 +12,11 @@
         <activity android:name=".Register_Page"></activity>
         <activity android:name=".Login_Page"></activity>
         <activity android:name=".UserHomePage"></activity>
+        <activity android:name=".ProfilePageAdmin"></activity>
+        <activity android:name=".AddAdmin"></activity>
+        <activity android:name=".AddRoute"></activity>
+        <activity android:name=".AdminPage"></activity>
+        <activity android:name=".ProfilePage"></activity>
         <activity android:name=".HomePage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

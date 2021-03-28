@@ -2,12 +2,15 @@ package com.example.flightapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 public class AdminPage extends AppCompatActivity {
     private Button addRoute;
@@ -16,7 +19,7 @@ public class AdminPage extends AppCompatActivity {
     private Button addAdmin;
     private TextView adminName;
     private FirebaseAuth mAuth;
-    Button logout;
+    AppCompatButton logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,21 @@ public class AdminPage extends AppCompatActivity {
         //String nameU = mAuth.getCurrentUser().getDisplayName();
         //adminName.setText(nameU);
 
-        logout = (Button) findViewById(R.id.buttonBackR);
+        logout = findViewById(R.id.buttonBackR);
+
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAuth.signOut();
+                Toast.makeText(AdminPage.this, "Logout Successful", Toast.LENGTH_SHORT).show();
+                Intent loginIntent = new Intent(AdminPage.this,Login_Page.class);
+                loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(loginIntent);
+                finish();
+
+            }
+        });
 
     }
 

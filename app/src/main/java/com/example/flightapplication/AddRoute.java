@@ -7,18 +7,25 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class AddRoute extends AppCompatActivity {
     private Button back;
     private static final String TAG = "AddRoute";
     private Button addRoute;
+    private EditText from;
+    private EditText to;
     private TextView dateDisplay;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +33,11 @@ public class AddRoute extends AppCompatActivity {
         setContentView((R.layout.addroutepage));
 
         dateDisplay = (TextView) findViewById(R.id.buttonDate);
-
+        from = (EditText) findViewById(R.id.inputFrom);
+        to = (EditText) findViewById(R.id.inputTo);
         back = (Button) findViewById(R.id.buttonBackR);
-        back.setOnClickListener(v -> startActivity(new Intent(this,AdminPage.class)));
+        back.setOnClickListener(v -> startActivity(new Intent(this, AdminPage.class)));
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         addRoute = (Button) findViewById(R.id.buttonAddR);
         addRoute.setOnClickListener(v -> addsRoute());
@@ -51,16 +60,22 @@ public class AddRoute extends AppCompatActivity {
         onDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month = month + 1 ;
+                month = month + 1;
 
-                Log.d(TAG, "onDateSet: mm/dd/yy: "+ month + "/" + dayOfMonth + "/" + year);
-                String date = month + "/" + dayOfMonth + "/" + year ;
+                Log.d(TAG, "onDateSet: mm/dd/yy: " + month + "/" + dayOfMonth + "/" + year);
+                String date = month + "/" + dayOfMonth + "/" + year;
                 dateDisplay.setText(date);
             }
         };
 
     }
-    public void addsRoute(){
 
+    public void addsRoute() {
+        String to1 = to.getText().toString();
+        String from1 = from.getText().toString();
+        String date1 = dateDisplay.getText().toString();
+        mDatabase.child("routes").child(from1 + " " + to1).child("from").setValue(from1);
+        mDatabase.child("routes").child(from1 + " " + to1).child("to").setValue(to1);
+        mDatabase.child("routes").child(from1 + " " + to1).child("date").setValue(date1);
     }
 }

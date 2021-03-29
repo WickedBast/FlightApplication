@@ -33,7 +33,7 @@ public class Login_Page extends AppCompatActivity {
     private ProgressDialog loginProgress;
     private DatabaseReference mAdmin;
     private ArrayList<String> arrAdmin;
-
+    private boolean isAdmin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,37 +81,40 @@ public class Login_Page extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+                     isAdmin = false;
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                         arrAdmin.add((String) snapshot1.getValue());
                     }
                     for (int i = 0; i < arrAdmin.size(); i++) {
                         if (email.equals(arrAdmin.get(i))) {
+                            isAdmin = true;
                             Intent intent = new Intent(Login_Page.this, AdminPage.class);
                             startActivity(intent);
-                        } else {
-                            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        loginProgress.dismiss();
-                                        Toast.makeText(Login_Page.this, "Login successful", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(Login_Page.this, UserHomePage.class);
-                                        startActivity(intent);
-                                    } else {
-                                        loginProgress.dismiss();
-                                        Toast.makeText(Login_Page.this, "Login failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-
-                                    }
-                                }
-                            });
                         }
                     }
+                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                loginProgress.dismiss();
+                                Toast.makeText(Login_Page.this, "Login successful", Toast.LENGTH_SHORT).show();
+                                if (!isAdmin) {
+                                    Intent intent = new Intent(Login_Page.this, UserHomePage.class);
+                                    startActivity(intent);
+                                }
+                            } else {
+                                loginProgress.dismiss();
+                                Toast.makeText(Login_Page.this, "Login failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
             }
 
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(Login_Page.this, "Something went wrong. Please try again", Toast.LENGTH_SHORT).show();
             }
         });
 

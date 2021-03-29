@@ -61,7 +61,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:text="Log In"
+        android:text="Login"
         android:textColor="#FFFFFF"
         android:textSize="36sp"
         android:textStyle="bold"

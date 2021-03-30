@@ -97,16 +97,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputPassword3" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonBackR"
-        android:layout_width="50dp"
-        android:layout_height="46dp"
-        android:background="@drawable/abc_vector_test"
-        app:layout_constraintBottom_toTopOf="@+id/inputEmail4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.044"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.084" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

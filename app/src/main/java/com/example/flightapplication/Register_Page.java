@@ -45,8 +45,7 @@ public class Register_Page extends AppCompatActivity {
         TextView btn = findViewById(R.id.textViewAccount);
         btn.setOnClickListener(v -> startActivity(new Intent(Register_Page.this, Login_Page.class)));
 
-        Button btn2 = findViewById(R.id.buttonBackR);
-        btn2.setOnClickListener(v -> startActivity(new Intent(Register_Page.this,HomePage.class)));
+
     }
 
     public void onClickButton(View view) {

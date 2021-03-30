@@ -70,7 +70,7 @@ public class AdminPage extends AppCompatActivity {
     }
 
     public void openProfile() {
-        startActivity(new Intent(this, ProfilePageAdmin.class));
+
     }
 
     public void openAddAdmin() {

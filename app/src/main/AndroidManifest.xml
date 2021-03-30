@@ -9,21 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FlightApplication">
-        <activity android:name=".ProfilePageAdmin"></activity>
-        <activity android:name=".AddAdmin"></activity>
-        <activity android:name=".AddRoute"></activity>
-        <activity android:name=".ProfilePage"></activity>
-        <activity android:name=".AdminPage">
-
+        <activity android:name=".SelectSeat"></activity>
+        <activity android:name=".AddAdmin" />
+        <activity android:name=".AddRoute" />
+        <activity android:name=".ProfilePage" />
+        <activity android:name=".AdminPage"></activity>
+        <activity android:name=".Register_Page" />
+        <activity android:name=".Login_Page">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".Register_Page"></activity>
-        <activity android:name=".Login_Page"></activity>
-        <activity android:name=".UserHomePage"></activity>
-        <activity android:name=".HomePage">            <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
+        <activity android:name=".UserHomePage">
+        </activity>
     </application>
 
 </manifest>

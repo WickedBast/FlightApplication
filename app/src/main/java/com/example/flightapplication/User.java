@@ -35,4 +35,14 @@ public class User {
     public String getSurname() {
         return surname;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "mail='" + mail + '\'' +
+                ", name='" + name + '\'' +
+                ", number='" + number + '\'' +
+                ", surname='" + surname + '\'' +
+                '}';
+    }
 }

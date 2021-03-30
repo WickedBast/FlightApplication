@@ -13,7 +13,6 @@
         style="@android:style/Widget.Material.CompoundButton.CheckBox"
         android:layout_width="140dp"
         android:layout_height="50dp"
-        android:layout_marginTop="24dp"
         android:background="@drawable/input_bg"
         android:button="@null"
         android:drawableLeft="@drawable/checkbox"
@@ -22,8 +21,12 @@
         android:text="Non Stop"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/buttonDate"
-        app:layout_constraintTop_toBottomOf="@+id/buttonDate"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.922"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.61"
         tools:scrollbarStyle="insideOverlay" />
 
     <ImageView
@@ -43,42 +46,19 @@
         android:layout_width="140dp"
         android:layout_height="50dp"
 
-        android:layout_marginTop="24dp"
-
 
         android:background="@drawable/input_bg"
         android:entries="@array/statu"
         android:paddingLeft="10dp"
         android:spinnerMode="dropdown"
-        app:layout_constraintStart_toStartOf="@+id/buttonDate"
-        app:layout_constraintTop_toBottomOf="@+id/buttonDate"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.616"
         tools:background="@drawable/input_bg"
         tools:contextClickable="false" />
-
-    <TextView
-        android:id="@+id/buttonDate"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/input_bg"
-
-        android:drawableLeft="@drawable/ic_baseline_calendar_today_24"
-        android:drawablePadding="6dp"
-        android:hint="Departs On"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp"
-        android:textColor="@color/white"
-        android:textColorHint="#FFFFFF"
-        android:textSize="30dp"
-        app:layout_constraintEnd_toEndOf="@+id/editText"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editText"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
-        tools:textColorHint="@color/white"
-        tools:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView4"
@@ -96,16 +76,16 @@
         android:id="@+id/buttonFindFlight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
         android:background="@drawable/button_bg"
-        android:text="FIND"
+        android:onClick="onClickBuy"
+        android:text="Buy"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonDate"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.777" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonLogOut"
@@ -113,10 +93,8 @@
         android:layout_height="70dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:layout_marginBottom="74dp"
         android:background="@drawable/ic_baseline_logout"
         android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/textInputEditText"
         app:layout_constraintEnd_toStartOf="@+id/textView4"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -133,47 +111,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/textInputEditText"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="176dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/input_bg"
-        android:drawableLeft="@drawable/ic_baseline_location_on_24"
-        android:drawablePadding="6dp"
-        android:hint="From"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="@color/white2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/editText"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/input_bg"
-        android:drawableLeft="@drawable/ic_baseline_airplanemode_active_24"
-        android:drawablePadding="6dp"
-        android:hint="To"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/textInputEditText"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textInputEditText"
-        app:layout_constraintTop_toBottomOf="@+id/textInputEditText" />
+    <Spinner
+        android:id="@+id/toSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.282"
+        tools:layout_editor_absoluteX="0dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

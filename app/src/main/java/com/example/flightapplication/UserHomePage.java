@@ -7,12 +7,10 @@ import androidx.appcompat.widget.AppCompatButton;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +23,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class UserHomePage extends AppCompatActivity {
     private TextView name;
@@ -34,10 +31,13 @@ public class UserHomePage extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener onDateSetListener;
     private Button viewProfile;
     private Spinner toSpinner;
+    private Spinner fromSpinner;
     private ArrayList<Route> arrRoutes;
-    private ArrayList<String> routeFromTo;
+    private ArrayList<String> routeTo;
+    private ArrayList<String> routeFrom;
     private DatabaseReference mRoutes;
-    private int choosenNumber;
+    private int choosenTo;
+    private int choosenFrom;
     AppCompatButton btnLogOut;
     FirebaseAuth mAuth;
 
@@ -55,8 +55,12 @@ public class UserHomePage extends AppCompatActivity {
         mRoutes = FirebaseDatabase.getInstance().getReference("routes");
 
         toSpinner = (Spinner) findViewById(R.id.toSpinner);
+        fromSpinner = (Spinner) findViewById(R.id.fromSpinner);
+
         arrRoutes = new ArrayList<>();
-        routeFromTo = new ArrayList<>();
+        routeTo = new ArrayList<>();
+        routeFrom = new ArrayList<>();
+
         name = (TextView) findViewById(R.id.textView4);
 
 //        String nameU = mAuth.getCurrentUser().getDisplayName();
@@ -77,15 +81,30 @@ public class UserHomePage extends AppCompatActivity {
                         arrRoutes.add((Route) snapshot1.getValue(Route.class));
                     }
                     for (int i = 0; i < arrRoutes.size(); i++) {
-                        routeFromTo.add(arrRoutes.get(i).getFrom() + " / " + arrRoutes.get(i).getTo() + " / " + arrRoutes.get(i).getDate());
+                        routeTo.add(arrRoutes.get(i).getTo());
+                        routeFrom.add(arrRoutes.get(i).getFrom());
                     }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, routeFromTo);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, routeTo);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     toSpinner.setAdapter(adapter);
                     toSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            choosenNumber = i;
+                            choosenTo = i;
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                            Toast.makeText(UserHomePage.this, "Something went wrong. Please try again.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, routeFrom);
+                    adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    fromSpinner.setAdapter(adapter2);
+                    fromSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            choosenFrom = i;
                         }
 
                         @Override
@@ -145,7 +164,8 @@ public class UserHomePage extends AppCompatActivity {
         Intent intent = new Intent(this, ProfilePage.class);
         startActivity(intent);
     }
-    public void onClickBuy(View v){
+
+    public void onClickBuy(View v) {
         Intent intent = new Intent(UserHomePage.this, SelectSeat.class);
         startActivity(intent);
     }

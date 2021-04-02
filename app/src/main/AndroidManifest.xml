@@ -16,12 +16,13 @@
         <activity android:name=".AdminPage"></activity>
         <activity android:name=".Register_Page" />
         <activity android:name=".Login_Page">
+
+        </activity>
+        <activity android:name=".UserHomePage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".UserHomePage">
         </activity>
     </application>
 

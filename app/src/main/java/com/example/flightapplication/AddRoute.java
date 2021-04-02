@@ -23,6 +23,7 @@ public class AddRoute extends AppCompatActivity {
     private Button addRoute;
     private EditText from;
     private EditText to;
+    private EditText price;
     private TextView dateDisplay;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
     private DatabaseReference mDatabase;
@@ -35,6 +36,7 @@ public class AddRoute extends AppCompatActivity {
         dateDisplay = (TextView) findViewById(R.id.buttonDate);
         from = (EditText) findViewById(R.id.inputFrom);
         to = (EditText) findViewById(R.id.inputTo);
+        price = (EditText) findViewById(R.id.price);
         back = (Button) findViewById(R.id.buttonBackR);
         back.setOnClickListener(v -> startActivity(new Intent(this, AdminPage.class)));
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -74,8 +76,10 @@ public class AddRoute extends AppCompatActivity {
         String to1 = to.getText().toString();
         String from1 = from.getText().toString();
         String date1 = dateDisplay.getText().toString();
+        String price1 = price.getText().toString();
         mDatabase.child("routes").child(from1 + " " + to1).child("from").setValue(from1);
         mDatabase.child("routes").child(from1 + " " + to1).child("to").setValue(to1);
         mDatabase.child("routes").child(from1 + " " + to1).child("date").setValue(date1);
+        mDatabase.child("routes").child(from1 + " " + to1).child("price").setValue(price1);
     }
 }

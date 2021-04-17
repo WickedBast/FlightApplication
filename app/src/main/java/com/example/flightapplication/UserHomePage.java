@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,7 +17,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.flightapplication.Model.Route;
+import com.example.flightapplication.Model.RouteSearch;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,7 +40,8 @@ public class UserHomePage extends AppCompatActivity {
     private ArrayList<Route> arrRoutes;
     private ArrayList<String> routeTo;
     private ArrayList<String> routeFrom;
-    private DatabaseReference mRoutes;
+    private DatabaseReference mRoutes,mRoutesSearch;
+    private ProgressDialog progressDialog;
     private int choosenTo;
     private int choosenFrom;
     AppCompatButton btnLogOut;
@@ -53,9 +59,12 @@ public class UserHomePage extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mRoutes = FirebaseDatabase.getInstance().getReference("routes");
+        mRoutesSearch = FirebaseDatabase.getInstance().getReference("routesSearch");
 
         toSpinner = (Spinner) findViewById(R.id.toSpinner);
         fromSpinner = (Spinner) findViewById(R.id.fromSpinner);
+
+        progressDialog = new ProgressDialog(this);
 
         arrRoutes = new ArrayList<>();
         routeTo = new ArrayList<>();
@@ -121,6 +130,8 @@ public class UserHomePage extends AppCompatActivity {
             }
         });
 
+
+
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -166,8 +177,37 @@ public class UserHomePage extends AppCompatActivity {
     }
 
     public void onClickBuy(View v) {
-        Intent intent = new Intent(UserHomePage.this, SelectSeat.class);
+        searchFlight();
+
+    }
+
+    private void searchFlight( ) {
+
+        String from = fromSpinner.getSelectedItem().toString().trim();
+        String to = toSpinner.getSelectedItem().toString().trim();
+
+
+        if(TextUtils.equals(from,"FROM")){
+            Toast.makeText(this, "Please select departure place", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (TextUtils.equals(to,"TO")) {
+            //password is empty
+            Toast.makeText(this, "Please select destination place", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        progressDialog.setMessage("Searching Fligts Please Wait...");
+        progressDialog.show();
+        RouteSearch route = new RouteSearch(from,to);
+        FirebaseUser user1 = mAuth.getCurrentUser();
+        mRoutesSearch.child(user1.getUid()).child("routeSearch").setValue(route);
+        Intent intent = new Intent(UserHomePage.this, FlightActivity.class);
+
+        intent.putExtra("FROM",from);
+        intent.putExtra("TO",to);
         startActivity(intent);
+        progressDialog.dismiss();
+
     }
 
 }

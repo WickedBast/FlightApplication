@@ -9,15 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FlightApplication">
-        <activity android:name=".SelectSeat"></activity>
         <activity android:name=".AddAdmin" />
         <activity android:name=".AddRoute" />
         <activity android:name=".ProfilePage" />
         <activity android:name=".AdminPage"></activity>
         <activity android:name=".Register_Page" />
         <activity android:name=".Login_Page">
-
         </activity>
+        <activity android:name=".FlightActivity"></activity>
         <activity android:name=".UserHomePage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

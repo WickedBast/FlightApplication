@@ -1,5 +1,6 @@
 package com.example.flightapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -35,9 +36,10 @@ public class Payment extends AppCompatActivity {
         pay = findViewById(R.id.pay);
         textView1 = findViewById(R.id.priceView);  // exact price
         balance = findViewById(R.id.balance);
-        priceCome = "100";
+        Intent intent = getIntent();
+        priceCome = intent.getStringExtra("price");
         dbCard = new ArrayList<>();
-        textView1.setText(priceCome);
+        textView1.setText("You pay "+priceCome+"₺");
     }
 
     public void pay(View view){
@@ -63,7 +65,9 @@ public class Payment extends AppCompatActivity {
                     Integer bakiyeNew= Integer.parseInt(bakiye);
 
                     bakiyeNew = bakiyeNew - priceComen;
-                    balance.setText(bakiyeNew.toString());
+                    balance.setText("Last creditcard value "+bakiyeNew.toString());
+                    bakiye= String.valueOf(bakiyeNew);
+                    FirebaseDatabase.getInstance().getReference().child("Card").child(creditcardCome).child(creditcardCome).child("bakiye").setValue(bakiye);
 
 
                 }
@@ -71,7 +75,8 @@ public class Payment extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(com.example.flightapplication.Payment.this, "Something went wrong. Please try again.", Toast.LENGTH_LONG).show();
+                Toast.makeText(com.example.flightapplication.Payment.this,
+                        "Something went wrong. Please try again.", Toast.LENGTH_LONG).show();
 
             }
         });

@@ -1,12 +1,15 @@
 package com.example.flightapplication;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,6 +35,7 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
     DatabaseReference databaseReference;
     FirebaseDatabase database;
     Route route;
+    Button pay;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +50,7 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
         recyclerView.setAdapter(adapter);
         adapter.setClickListener((ItemClickListener) this);
         database = FirebaseDatabase.getInstance();
-
+        pay = findViewById(R.id.pay);
         databaseReference = database.getReference("routesSearch");
 
 
@@ -109,7 +113,11 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
                     }
                 });
 
+
+
     }
+
+
 
     ValueEventListener valueEventListener = new ValueEventListener() {
 
@@ -137,4 +145,6 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
     public void Onclick(View view, int position) {
 
     }
+
+
 }

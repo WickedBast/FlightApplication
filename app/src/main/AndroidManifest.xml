@@ -14,7 +14,9 @@
         <activity android:name=".ProfilePage" />
         <activity android:name=".AdminPage"></activity>
         <activity android:name=".Register_Page" />
+        <activity android:name=".Payment" />
         <activity android:name=".Login_Page">
+
         </activity>
         <activity android:name=".FlightActivity"></activity>
         <activity android:name=".UserHomePage">

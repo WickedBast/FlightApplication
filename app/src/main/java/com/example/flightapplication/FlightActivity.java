@@ -215,6 +215,7 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
 
         Route routeDetail =routeList.get(position);
         Intent intent = new Intent(FlightActivity.this,Payment.class);
+        intent.putExtra("price",routeDetail.getPrice());
         startActivity(intent);
 
 

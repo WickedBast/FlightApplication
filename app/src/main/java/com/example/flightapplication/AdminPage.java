@@ -67,6 +67,9 @@ public class AdminPage extends AppCompatActivity {
     }
 
     public void openViewFlights() {
+
+        Intent intent = new Intent(AdminPage.this,ViewRouteActivity.class);
+        startActivity(intent);
     }
 
     public void openProfile() {

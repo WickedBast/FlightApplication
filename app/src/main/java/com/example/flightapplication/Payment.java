@@ -40,7 +40,20 @@ public class Payment extends AppCompatActivity {
         priceCome = intent.getStringExtra("price");
         dbCard = new ArrayList<>();
         textView1.setText("You pay "+priceCome+"₺");
+        
+        pay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(Payment.this, "Payment Succeed", Toast.LENGTH_SHORT).show();
+                Intent intent1 = new Intent(Payment.this,UserHomePage.class);
+                startActivity(intent1);
+                finish();
+            }
+        });
+        
     }
+    
+    
 
     public void pay(View view){
         creditcardCome = creditCard.getText().toString();

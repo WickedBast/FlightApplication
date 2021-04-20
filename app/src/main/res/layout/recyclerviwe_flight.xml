@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="200dp">
+    android:layout_height="150dp"
+    >
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -13,7 +14,7 @@
         <ImageView
             android:id="@+id/busImage"
             android:layout_width="132dp"
-            android:layout_height="150dp"
+            android:layout_height="100dp"
             android:src="@mipmap/ic_launcher" />
 
         <LinearLayout
@@ -21,6 +22,13 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="140dp"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_view_flightNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="FlightNumber: FFF1234"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
 
             <TextView
                 android:id="@+id/text_view_from"
@@ -35,16 +43,19 @@
                 android:layout_height="wrap_content"
                 android:text="To: Colombo"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
-
-            <Button
-                android:id="@+id/pay"
-                android:layout_width="131dp"
+            <TextView
+                android:id="@+id/text_view_date"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="52dp"
-                android:background="@drawable/button_bg"
-                android:onClick="pay"
-                android:text="Pay"
-                app:iconTint="#FFFFFF" />
+                android:text="Date: 14/04/2019"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+            <TextView
+                android:id="@+id/text_view_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Date: 14/04/2019"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
 
 
         </LinearLayout>

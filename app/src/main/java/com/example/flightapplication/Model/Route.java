@@ -1,32 +1,47 @@
 package com.example.flightapplication.Model;
 
 public class Route {
+    private String routeId;
     private String from;
     private String to;
-    private String flightNumber;
     private String price;
+    private String date;
 
-    public Route(String from, String to, String flightNumber,String price) {
+    public Route( ) {
+    }
+
+    public Route(String routeId, String from, String to, String price, String date) {
+        this.routeId = routeId;
         this.from = from;
         this.to = to;
-        this.flightNumber = flightNumber;
         this.price = price;
-
+        this.date = date;
     }
 
-    public Route() {
-
+    public String getRouteId( ) {
+        return routeId;
     }
 
+    public void setRouteId(String routeId) {
+        this.routeId = routeId;
+    }
 
+    public String getFrom( ) {
+        return from;
+    }
 
     public void setFrom(String from) {
         this.from = from;
     }
 
+    public String getTo( ) {
+        return to;
+    }
+
     public void setTo(String to) {
         this.to = to;
     }
+
 
     public String getPrice( ) {
         return price;
@@ -36,29 +51,11 @@ public class Route {
         this.price = price;
     }
 
-    public String getFlightNumber( ) {
-        return flightNumber;
+    public String getDate( ) {
+        return date;
     }
 
-    public void setFlightNumber(String flightNumber) {
-        this.flightNumber = flightNumber;
-    }
-
-    public String getFrom() {
-        return from;
-    }
-
-    public String getTo() {
-        return to;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Route{" +
-                "from='" + from + '\'' +
-                ", to='" + to + '\'' +
-               // ", date='"  + '\'' +
-                '}';
+    public void setDate(String date) {
+        this.date = date;
     }
 }

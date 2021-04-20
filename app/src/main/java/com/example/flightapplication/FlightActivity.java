@@ -1,22 +1,24 @@
 package com.example.flightapplication;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.flightapplication.Interface.ItemClickListener;
 import com.example.flightapplication.Model.Route;
-import com.example.flightapplication.Model.RouteSearch;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,12 +32,15 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
 
     private RecyclerView recyclerView;
     private FlightAdapter adapter;
-    private List<RouteSearch> routeList;
+    private List<Route> routeList;
     private ProgressDialog progressDialog;
     DatabaseReference databaseReference;
     FirebaseDatabase database;
-    Route route;
-    Button pay;
+    FirebaseAuth firebaseAuth;
+
+    LinearLayoutManager mLayoutMaganer; //for sortimg
+    SharedPreferences mSharedPref;  //for saving sort settings
+    TextView sortPrice;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,30 +48,65 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         routeList = new ArrayList<>();
         adapter = new FlightAdapter(this,routeList);
         recyclerView.setAdapter(adapter);
         adapter.setClickListener((ItemClickListener) this);
         database = FirebaseDatabase.getInstance();
-        pay = findViewById(R.id.pay);
-        databaseReference = database.getReference("routesSearch");
+        sortPrice = findViewById(R.id.txt_sort_price);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+
 
 
 
         String fromFlight = getIntent().getStringExtra("FROM");
         String toFlight = getIntent().getStringExtra("TO");
-        String price = getIntent().getStringExtra("PRICE");
+        String date = getIntent().getStringExtra("DATE");
 
-        databaseReference.child(fromFlight + " " + toFlight).child("from").setValue(fromFlight);
-        databaseReference.child(fromFlight + " " + toFlight).child("to").setValue(toFlight);
-        databaseReference.child(fromFlight + " " + toFlight).child("price").setValue(price);
+       // databaseReference.child(fromFlight + " " + toFlight).child("from").setValue(fromFlight);
+        //databaseReference.child(fromFlight + " " + toFlight).child("to").setValue(toFlight);
+        //databaseReference.child(fromFlight + " " + toFlight).child("price").setValue(price);
+        //databaseReference.child("date").setValue(date);
+
 
         //databaseReference.child("from").setValue(fromFlight);
         // databaseReference.child("to").setValue(toFlight);
 
-        FirebaseDatabase.getInstance().getReference("routesSearch")
+        //sorting codes
+        mSharedPref = getSharedPreferences("SortSettings", MODE_PRIVATE);
+        String mSorting = mSharedPref.getString("Sort","highest"); // where if no setting is selected newest default
+
+
+
+        if(mSorting.equals("highest")){
+            mLayoutMaganer = new LinearLayoutManager(this);
+            //this will load the items from bottom means higest first
+            mLayoutMaganer.setReverseLayout(true);
+            mLayoutMaganer.setStackFromEnd(true);
+        }else if(mSorting.equals("cheapest")){
+            mLayoutMaganer = new LinearLayoutManager(this);
+            //this will load the items from bottom means cheapest first
+            mLayoutMaganer.setReverseLayout(false);
+            mLayoutMaganer.setStackFromEnd(false);
+
+        }
+        recyclerView.setLayoutManager(mLayoutMaganer);
+
+
+        //sorting Price
+        sortPrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(FlightActivity.this, "deneme", Toast.LENGTH_SHORT).show();
+                
+                showSortDialog();
+            }
+        });
+
+        FirebaseDatabase.getInstance().getReference("RouteDetails")
                 .orderByChild("from")
                 .equalTo(fromFlight)
                 .addValueEventListener(new ValueEventListener() {
@@ -75,12 +115,12 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
                         routeList.clear();
                         if(dataSnapshot.exists()){
                             for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-                                RouteSearch route = snapshot.getValue(RouteSearch.class);
+                                Route route = snapshot.getValue(Route.class);
                                 routeList.add(route);
                             }
                             adapter.notifyDataSetChanged();
                         }
-                        FirebaseDatabase.getInstance().getReference().child("routesSearch")
+                        FirebaseDatabase.getInstance().getReference().child("RouteDetails")
                                 .orderByChild("to")
                                 .equalTo(toFlight)
                                 .addValueEventListener(new ValueEventListener() {
@@ -89,7 +129,7 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
                                         routeList.clear();
                                         if(dataSnapshot.exists()){
                                             for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-                                                RouteSearch route = snapshot.getValue(RouteSearch.class);
+                                                Route route = snapshot.getValue(Route.class);
                                                 routeList.add(route);
                                             }
                                             adapter.notifyDataSetChanged();
@@ -117,6 +157,35 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
 
     }
 
+    private void showSortDialog( ) {
+
+        String[] sortOption ={"Highest", "Cheapest"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Sort by")
+                .setIcon(R.drawable.ic_action_sort)
+                .setItems(sortOption, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        if(i == 0){
+                            //sort by highest
+                            SharedPreferences.Editor editor = mSharedPref.edit();
+                            editor.putString("Sort","highest"); // where sort is key & highest is value
+                            editor.apply();
+                            recreate();
+
+
+                        }else if(i == 1){
+                            //sort by cheapest
+                            SharedPreferences.Editor editor = mSharedPref.edit();
+                            editor.putString("Sort","cheapest"); // where sort is key & highest is value
+                            editor.apply();
+                            recreate();
+                        }
+                    }
+                });
+        builder.show();
+    }
 
 
     ValueEventListener valueEventListener = new ValueEventListener() {
@@ -126,7 +195,7 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
             routeList.clear();
             if(dataSnapshot.exists()){
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    RouteSearch route = snapshot.getValue(RouteSearch.class);
+                    Route route = snapshot.getValue(Route.class);
                     routeList.add(route);
                 }
                 adapter.notifyDataSetChanged();
@@ -143,6 +212,11 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
 
     @Override
     public void Onclick(View view, int position) {
+
+        Route routeDetail =routeList.get(position);
+        Intent intent = new Intent(FlightActivity.this,Payment.class);
+        startActivity(intent);
+
 
     }
 

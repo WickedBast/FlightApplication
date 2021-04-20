@@ -1,19 +1,25 @@
 package com.example.flightapplication;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.flightapplication.Model.Route;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -26,7 +32,9 @@ public class AddRoute extends AppCompatActivity {
     private EditText price;
     private TextView dateDisplay;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
-    private DatabaseReference mDatabase;
+    private DatabaseReference databaseReference;
+    private FirebaseAuth firebaseAuth;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +47,12 @@ public class AddRoute extends AppCompatActivity {
         price = (EditText) findViewById(R.id.price);
         back = (Button) findViewById(R.id.buttonBackR);
         back.setOnClickListener(v -> startActivity(new Intent(this, AdminPage.class)));
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         addRoute = (Button) findViewById(R.id.buttonAddR);
         addRoute.setOnClickListener(v -> addsRoute());
+        progressDialog = new ProgressDialog(this);
 
         dateDisplay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +83,47 @@ public class AddRoute extends AppCompatActivity {
     }
 
     public void addsRoute() {
-        String to1 = to.getText().toString();
+
+        String date = dateDisplay.getText().toString().trim();
+        String from1 = from.getText().toString().trim();
+        String to1 = to.getText().toString().trim();
+        String price1 = price.getText().toString().trim();
+
+        String routeId = databaseReference.push().getKey();
+
+        if (TextUtils.isEmpty(date)) {
+
+            Toast.makeText(this, "Please Enter Journey Date", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (TextUtils.equals(from1,"From")) {
+
+            Toast.makeText(this, "Please Select Departure Place", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (TextUtils.equals(to1,"To")) {
+
+            Toast.makeText(this, "Please Select Destination Place", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (TextUtils.equals(price1,"Price")) {
+
+            Toast.makeText(this, "Please Select Bus Condition", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Route route = new Route(routeId,from1,to1,price1,date);
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        databaseReference.child("RouteDetails").child(routeId).setValue(route);
+        progressDialog.setMessage("Adding Buses Please Wait...");
+        progressDialog.show();
+        Intent intent=new Intent(getApplicationContext(),ViewRouteActivity.class);
+        startActivity(intent);
+        progressDialog.dismiss();
+
+
+
+        /*String to1 = to.getText().toString();
         String from1 = from.getText().toString();
         String date1 = dateDisplay.getText().toString();
         String price1 = price.getText().toString();
@@ -81,5 +131,7 @@ public class AddRoute extends AppCompatActivity {
         mDatabase.child("routes").child(from1 + " " + to1).child("to").setValue(to1);
         mDatabase.child("routes").child(from1 + " " + to1).child("date").setValue(date1);
         mDatabase.child("routes").child(from1 + " " + to1).child("price").setValue(price1);
+
+         */
     }
 }

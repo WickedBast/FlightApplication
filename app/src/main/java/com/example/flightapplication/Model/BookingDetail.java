@@ -1,17 +1,19 @@
 package com.example.flightapplication.Model;
 
-public class RouteSearch {
+public class BookingDetail {
 
     private String from;
     private String to;
+    private String date;
 
 
-    public RouteSearch( ) {
+    public BookingDetail( ) {
     }
 
-    public RouteSearch(String from, String to) {
+    public BookingDetail(String from, String to, String date) {
         this.from = from;
         this.to = to;
+        this.date = date;
     }
 
     public String getFrom( ) {
@@ -28,5 +30,13 @@ public class RouteSearch {
 
     public void setTo(String to) {
         this.to = to;
+    }
+
+    public String getDate( ) {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

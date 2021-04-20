@@ -1,28 +1,25 @@
 package com.example.flightapplication;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.flightapplication.Interface.ItemClickListener;
-import com.example.flightapplication.Model.RouteSearch;
+import com.example.flightapplication.Model.Route;
 
 import java.util.List;
 
 public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightViewHolder> {
 
     private Context mCtx;
-    private List<RouteSearch> routeList;
+    private List<Route> routeList;
     private ItemClickListener clickListener;
-    Button pay;
-    public FlightAdapter(Context mCtx, List<RouteSearch> routeList) {
+    public FlightAdapter(Context mCtx, List<Route> routeList) {
         this.mCtx = mCtx;
         this.routeList = routeList;
     }
@@ -37,9 +34,12 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightView
     @Override
     public void onBindViewHolder(@NonNull FlightViewHolder holder, int position) {
 
-        RouteSearch route = routeList.get(position);
+        Route route = routeList.get(position);
         holder.textViewFrom.setText("From: "+route.getFrom());
         holder.textViewTo.setText("To: " + route.getTo());
+        holder.textViewDate.setText("Date: " + route.getDate());
+        holder.textViewPrice.setText("Price: " + route.getPrice());
+
 
     }
 
@@ -59,7 +59,7 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightView
 
     public class FlightViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView textViewFrom,textViewTo;
+        TextView textViewFrom,textViewTo,textViewDate,textViewPrice;
 
 
         public FlightViewHolder(@NonNull View itemView) {
@@ -67,19 +67,11 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightView
 
             textViewFrom = itemView.findViewById(R.id.text_view_from);
             textViewTo = itemView.findViewById(R.id.text_view_to);
-            pay = itemView.findViewById(R.id.pay);
+            textViewDate = itemView.findViewById(R.id.text_view_date);
+            textViewPrice = itemView.findViewById(R.id.text_view_price);
             itemView.setTag(itemView);
             itemView.setOnClickListener(this);
 
-            pay.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(mCtx,Payment.class);
-                    intent.putExtra("price","100");
-                    mCtx.startActivity(intent);
-
-                }
-            });
 
         }
 

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -33,6 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 
 public class UserHomePage extends AppCompatActivity {
     private TextView name;
@@ -45,7 +47,7 @@ public class UserHomePage extends AppCompatActivity {
     private ArrayList<Route> arrRoutes;
     private ArrayList<String> routeTo;
     private ArrayList<String> routeFrom;
-    private DatabaseReference mRoutes,databaseReference;
+    private DatabaseReference mRoutes, databaseReference;
     private ProgressDialog progressDialog;
     private int choosenTo;
     private int choosenFrom;
@@ -54,11 +56,12 @@ public class UserHomePage extends AppCompatActivity {
 
     TextView tvDate;
 
+    @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_home_page);
-       // mDisplayDate = (TextView) findViewById(R.id.buttonDate);
+        // mDisplayDate = (TextView) findViewById(R.id.buttonDate);
         btnLogOut = findViewById(R.id.buttonLogOut);
 
         viewProfile = (Button) findViewById(R.id.buttonUser);
@@ -128,12 +131,36 @@ public class UserHomePage extends AppCompatActivity {
                 if (snapshot.exists()) {
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                         arrRoutes.add((Route) snapshot1.getValue(Route.class));
-
                     }
+
                     for (int i = 0; i < arrRoutes.size(); i++) {
                         routeTo.add(arrRoutes.get(i).getTo());
                         routeFrom.add(arrRoutes.get(i).getFrom());
                     }
+                    Collections.sort(routeTo);
+                    Collections.sort(routeFrom);
+                    ArrayList<String> toArr = new ArrayList<>();
+                    ArrayList<String> fromArr = new ArrayList<>();
+                    String currentTo = routeTo.get(0);
+                    String currentFrom = routeFrom.get(0);
+                    toArr.add(currentTo);
+                    fromArr.add(currentFrom);
+
+                    for (int i = 1; i < routeTo.size(); i++) {
+                        if (!currentTo.equals(routeTo.get(i))) {
+                            toArr.add(routeTo.get(i));
+                            currentTo = routeTo.get(i);
+                        }
+                    }
+                    routeTo = toArr;
+                    for (int i = 1; i < routeFrom.size(); i++) {
+                        if (!currentFrom.equals(routeFrom.get(i))) {
+                            fromArr.add(routeFrom.get(i));
+                            currentFrom = routeFrom.get(i);
+                        }
+                    }
+                    routeFrom = fromArr;
+
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, routeTo);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     toSpinner.setAdapter(adapter);
@@ -170,7 +197,6 @@ public class UserHomePage extends AppCompatActivity {
                 Toast.makeText(UserHomePage.this, "Something went wrong. Please try again", Toast.LENGTH_SHORT).show();
             }
         });
-
 
 
         btnLogOut.setOnClickListener(new View.OnClickListener() {
@@ -222,18 +248,18 @@ public class UserHomePage extends AppCompatActivity {
 
     }
 
-    private void searchFlight( ) {
+    private void searchFlight() {
 
         String from = fromSpinner.getSelectedItem().toString().trim();
         String to = toSpinner.getSelectedItem().toString().trim();
         String date = tvDate.getText().toString().trim();
 
 
-        if(TextUtils.equals(from,"FROM")){
+        if (TextUtils.equals(from, "FROM")) {
             Toast.makeText(this, "Please select departure place", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.equals(to,"TO")) {
+        if (TextUtils.equals(to, "TO")) {
             //password is empty
             Toast.makeText(this, "Please select destination place", Toast.LENGTH_SHORT).show();
             return;
@@ -245,14 +271,14 @@ public class UserHomePage extends AppCompatActivity {
         }
         progressDialog.setMessage("Searching Fligts Please Wait...");
         progressDialog.show();
-        BookingDetail route = new BookingDetail(from,to,date);
+        BookingDetail route = new BookingDetail(from, to, date);
         FirebaseUser user1 = mAuth.getCurrentUser();
         databaseReference.child(user1.getUid()).child("BookingDetails").setValue(route);
         Intent intent = new Intent(UserHomePage.this, FlightActivity.class);
 
-        intent.putExtra("FROM",from);
-        intent.putExtra("TO",to);
-        intent.putExtra("DATE",date);
+        intent.putExtra("FROM", from);
+        intent.putExtra("TO", to);
+        intent.putExtra("DATE", date);
         startActivity(intent);
         progressDialog.dismiss();
 

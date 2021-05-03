@@ -1,5 +1,6 @@
 package com.example.flightapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,7 @@ public class FlightDetailAdapter extends RecyclerView.Adapter<FlightDetailAdapte
         return new FlightViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull FlightViewHolder holder, int position) {
         Route route = routeList.get(position);

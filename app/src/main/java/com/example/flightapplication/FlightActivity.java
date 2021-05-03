@@ -38,7 +38,7 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
     FirebaseDatabase database;
     FirebaseAuth firebaseAuth;
 
-    LinearLayoutManager mLayoutMaganer; //for sortimg
+    LinearLayoutManager mLayoutMaganer; //for sorting
     SharedPreferences mSharedPref;  //for saving sort settings
     TextView sortPrice;
     @Override
@@ -83,7 +83,7 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
 
         if(mSorting.equals("highest")){
             mLayoutMaganer = new LinearLayoutManager(this);
-            //this will load the items from bottom means higest first
+            //this will load the items from bottom means highest first
             mLayoutMaganer.setReverseLayout(true);
             mLayoutMaganer.setStackFromEnd(true);
         }else if(mSorting.equals("cheapest")){
@@ -214,7 +214,7 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
     public void Onclick(View view, int position) {
 
         Route routeDetail =routeList.get(position);
-        Intent intent = new Intent(FlightActivity.this,Payment.class);
+        Intent intent = new Intent(FlightActivity.this,ChoosePayment.class);
         intent.putExtra("price",routeDetail.getPrice());
         startActivity(intent);
 

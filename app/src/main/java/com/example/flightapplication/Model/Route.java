@@ -1,21 +1,48 @@
 package com.example.flightapplication.Model;
 
+import java.util.Comparator;
+
 public class Route {
     private String routeId;
     private String from;
     private String to;
     private String price;
     private String date;
+    private String time;
+    private String toTime;
+    private String duration;
 
     public Route( ) {
     }
 
-    public Route(String routeId, String from, String to, String price, String date) {
+    public Route(String routeId, String from, String to, String price, String date,String time,String toTime) {
         this.routeId = routeId;
         this.from = from;
         this.to = to;
         this.price = price;
         this.date = date;
+        this.time = time;
+        this.toTime = toTime;
+    }
+
+    public String getDuration( ) {
+        return String.valueOf(Integer.parseInt(getTo()) - Integer.parseInt(getFrom()));
+    }
+
+    public String getToTime( ) {
+        return toTime;
+    }
+
+    public void setToTime(String toTime) {
+        this.toTime = toTime;
+    }
+
+    public String getTime( ) {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getRouteId( ) {
@@ -58,4 +85,23 @@ public class Route {
     public void setDate(String date) {
         this.date = date;
     }
+
+    public  static final Comparator<Route> BY_TIME_ASCENDING = new Comparator<Route>() {
+        @Override
+        public int compare(Route o1, Route o2) {
+
+            //ascending
+            return o1.getTime().compareTo(o2.getTime());
+
+        }
+    };
+    public  static final Comparator<Route> BY_TIME_DESCENDING = new Comparator<Route>() {
+        @Override
+        public int compare(Route o1, Route o2) {
+
+            //descending
+            return o2.getTime().compareTo(o1.getTime());
+
+        }
+    };
 }

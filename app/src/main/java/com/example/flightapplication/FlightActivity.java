@@ -5,8 +5,11 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.flightapplication.Interface.ItemClickListener;
 import com.example.flightapplication.Model.Route;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,6 +35,7 @@ import java.util.List;
 
 public class FlightActivity extends AppCompatActivity implements ItemClickListener {
 
+    private static final String TAG = "FlightActivity";
     private RecyclerView recyclerView;
     private FlightAdapter adapter;
     private List<Route> routeList;
@@ -38,9 +44,12 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
     FirebaseDatabase database;
     FirebaseAuth firebaseAuth;
 
-    LinearLayoutManager mLayoutMaganer; //for sorting
-    SharedPreferences mSharedPref;  //for saving sort settings
-    TextView sortPrice;
+    LinearLayoutManager mLayoutMaganer;//for sorting
+    SharedPreferences mSharedPref, pref;  //for saving sort settings
+    TextView sortPrice, sortTime;
+
+    String fromFlight,toFlight;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,47 +59,39 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         routeList = new ArrayList<>();
-        adapter = new FlightAdapter(this,routeList);
+        adapter = new FlightAdapter(this, routeList);
         recyclerView.setAdapter(adapter);
         adapter.setClickListener((ItemClickListener) this);
-        database = FirebaseDatabase.getInstance();
         sortPrice = findViewById(R.id.txt_sort_price);
+        sortTime = findViewById(R.id.txt_sort_time);
 
+        //Firebase
+        database = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
-
-
-        String fromFlight = getIntent().getStringExtra("FROM");
-        String toFlight = getIntent().getStringExtra("TO");
+         fromFlight = getIntent().getStringExtra("FROM");
+         toFlight = getIntent().getStringExtra("TO");
         String date = getIntent().getStringExtra("DATE");
 
-       // databaseReference.child(fromFlight + " " + toFlight).child("from").setValue(fromFlight);
-        //databaseReference.child(fromFlight + " " + toFlight).child("to").setValue(toFlight);
-        //databaseReference.child(fromFlight + " " + toFlight).child("price").setValue(price);
-        //databaseReference.child("date").setValue(date);
-
-
-        //databaseReference.child("from").setValue(fromFlight);
-        // databaseReference.child("to").setValue(toFlight);
 
         //sorting codes
         mSharedPref = getSharedPreferences("SortSettings", MODE_PRIVATE);
-        String mSorting = mSharedPref.getString("Sort","highest"); // where if no setting is selected newest default
+        String mSorting = mSharedPref.getString("Sort", "highest"); // where if no setting is selected highest default
 
 
-
-        if(mSorting.equals("highest")){
+        if (mSorting.equals("highest")) {
             mLayoutMaganer = new LinearLayoutManager(this);
             //this will load the items from bottom means highest first
-            mLayoutMaganer.setReverseLayout(true);
-            mLayoutMaganer.setStackFromEnd(true);
-        }else if(mSorting.equals("cheapest")){
-            mLayoutMaganer = new LinearLayoutManager(this);
-            //this will load the items from bottom means cheapest first
             mLayoutMaganer.setReverseLayout(false);
             mLayoutMaganer.setStackFromEnd(false);
+
+        } else if (mSorting.equals("cheapest")) {
+            mLayoutMaganer = new LinearLayoutManager(this);
+            //this will load the items from bottom means cheapest first
+            mLayoutMaganer.setReverseLayout(true);
+            mLayoutMaganer.setStackFromEnd(true);
 
         }
         recyclerView.setLayoutManager(mLayoutMaganer);
@@ -101,10 +102,20 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
             @Override
             public void onClick(View view) {
                 //Toast.makeText(FlightActivity.this, "deneme", Toast.LENGTH_SHORT).show();
-                
+
                 showSortDialog();
             }
         });
+
+        //sorting Time
+        sortTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                showSortDialogforTime();
+            }
+        });
+
 
         FirebaseDatabase.getInstance().getReference("RouteDetails")
                 .orderByChild("from")
@@ -113,8 +124,8 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         routeList.clear();
-                        if(dataSnapshot.exists()){
-                            for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                        if (dataSnapshot.exists()) {
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 Route route = snapshot.getValue(Route.class);
                                 routeList.add(route);
                             }
@@ -127,8 +138,8 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         routeList.clear();
-                                        if(dataSnapshot.exists()){
-                                            for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                                        if (dataSnapshot.exists()) {
+                                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                                 Route route = snapshot.getValue(Route.class);
                                                 routeList.add(route);
                                             }
@@ -140,7 +151,7 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
 
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError error) {
-                                        Toast.makeText(FlightActivity.this,"Firebase Database Error",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(FlightActivity.this, "Firebase Database Error", Toast.LENGTH_LONG).show();
                                     }
                                 });
 
@@ -149,17 +160,45 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(FlightActivity.this,"Firebase Database Error",Toast.LENGTH_LONG).show();
+                        Toast.makeText(FlightActivity.this, "Firebase Database Error", Toast.LENGTH_LONG).show();
                     }
                 });
 
 
+    }
 
+    private void showSortDialogforTime( ) {
+
+        String[] sortOption = {"Ascending", "Descending"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Sort By Time")
+                .setIcon(R.drawable.ic_action_sort)
+                .setItems(sortOption, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (i == 0) {
+                            //sort by highest
+                            SharedPreferences.Editor editor = mSharedPref.edit();
+                            editor.putString("Sort", "ascending"); // where sort is key & highest is value
+                            editor.apply();
+                            recreate();
+
+
+                        } else if (i == 1) {
+                            //sort by cheapest
+                            SharedPreferences.Editor editor = mSharedPref.edit();
+                            editor.putString("Sort", "descending"); // where sort is key & highest is value
+                            editor.apply();
+                            recreate();
+                        }
+                    }
+                });
+        builder.show();
     }
 
     private void showSortDialog( ) {
 
-        String[] sortOption ={"Highest", "Cheapest"};
+        String[] sortOption = {"Highest", "Cheapest"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Sort by")
                 .setIcon(R.drawable.ic_action_sort)
@@ -167,18 +206,18 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        if(i == 0){
+                        if (i == 0) {
                             //sort by highest
                             SharedPreferences.Editor editor = mSharedPref.edit();
-                            editor.putString("Sort","highest"); // where sort is key & highest is value
+                            editor.putString("Sort", "highest"); // where sort is key & highest is value
                             editor.apply();
                             recreate();
 
 
-                        }else if(i == 1){
+                        } else if (i == 1) {
                             //sort by cheapest
                             SharedPreferences.Editor editor = mSharedPref.edit();
-                            editor.putString("Sort","cheapest"); // where sort is key & highest is value
+                            editor.putString("Sort", "cheapest"); // where sort is key & highest is value
                             editor.apply();
                             recreate();
                         }
@@ -193,8 +232,8 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             routeList.clear();
-            if(dataSnapshot.exists()){
-                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+            if (dataSnapshot.exists()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Route route = snapshot.getValue(Route.class);
                     routeList.add(route);
                 }
@@ -209,14 +248,15 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
     };
 
 
-
     @Override
     public void Onclick(View view, int position) {
 
-        Route routeDetail =routeList.get(position);
-        Intent intent = new Intent(FlightActivity.this,ChoosePayment.class);
-        intent.putExtra("price",routeDetail.getPrice());
+        Route routeDetail = routeList.get(position);
+        Intent intent = new Intent(FlightActivity.this, FlightDetails.class);
+        intent.putExtra("fromm", fromFlight);
+        intent.putExtra("too", toFlight);
         startActivity(intent);
+
 
 
     }

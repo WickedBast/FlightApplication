@@ -9,20 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FlightApplication">
+        <activity android:name=".FlightDetails"></activity>
         <activity android:name=".AddAdmin" />
         <activity android:name=".AddRoute" />
         <activity android:name=".ProfilePage" />
-        <activity android:name=".Login_Page"/>
+        <activity android:name=".UserHomePage" />
         <activity android:name=".Register_Page" />
         <activity android:name=".CreditCard" />
-        <activity android:name=".BankAccount"/>
-        <activity android:name=".AdminPage"/>
-        <activity android:name=".ChoosePayment"/>
-        <activity android:name=".ViewRouteActivity"></activity>
-        <activity android:name=".FlightActivity"></activity>
-        <activity android:name=".UserHomePage">
+        <activity android:name=".BankAccount" />
+        <activity android:name=".AdminPage" />
+        <activity android:name=".ChoosePayment" />
+        <activity android:name=".ViewRouteActivity" />
+        <activity android:name=".FlightActivity" />
+        <activity android:name=".Login_Page">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

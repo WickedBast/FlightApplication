@@ -2,6 +2,7 @@ package com.example.flightapplication;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -31,7 +33,9 @@ public class AddRoute extends AppCompatActivity {
     private EditText to;
     private EditText price;
     private TextView dateDisplay;
+    private TextView buttonTime,toTime;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
+    private TimePickerDialog.OnTimeSetListener onTimeSetListener,onTimeSetListener1;
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
@@ -41,6 +45,8 @@ public class AddRoute extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView((R.layout.addroutepage));
 
+        toTime = findViewById(R.id.txtToTime);
+        buttonTime = findViewById(R.id.buttonTime);
         dateDisplay = (TextView) findViewById(R.id.buttonDate);
         from = (EditText) findViewById(R.id.inputFrom);
         to = (EditText) findViewById(R.id.inputTo);
@@ -53,6 +59,60 @@ public class AddRoute extends AppCompatActivity {
         addRoute = (Button) findViewById(R.id.buttonAddR);
         addRoute.setOnClickListener(v -> addsRoute());
         progressDialog = new ProgressDialog(this);
+
+
+        buttonTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(AddRoute.this,onTimeSetListener,hour,minute,false);
+                timePickerDialog.show();
+
+
+            }
+        });
+
+        onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int selectedHours, int selectedMinutes) {
+
+                Log.d(TAG, "onHourSet: hh/mm" + selectedHours + ":" + selectedMinutes);
+                String time = selectedHours + ":" + selectedMinutes;
+                buttonTime.setText(new StringBuilder().append(time));
+            }
+        };
+
+
+
+
+        toTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar mcurrentTime1 = Calendar.getInstance();
+                int hour = mcurrentTime1.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime1.get(Calendar.MINUTE);
+
+                TimePickerDialog timePickerDialog1 = new TimePickerDialog(AddRoute.this,onTimeSetListener1,hour,minute,false);
+                timePickerDialog1.show();
+            }
+        });
+
+       onTimeSetListener1 = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker1, int selectedHours, int selectedMinutes) {
+
+                Log.d(TAG, "onHourSet: hh/mm" + selectedHours + ":" + selectedMinutes);
+                String time1 = selectedHours + ":" + selectedMinutes;
+                toTime.setText(new StringBuilder().append(time1));
+            }
+        };
+
+
+
+
 
         dateDisplay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +148,8 @@ public class AddRoute extends AppCompatActivity {
         String from1 = from.getText().toString().trim();
         String to1 = to.getText().toString().trim();
         String price1 = price.getText().toString().trim();
+        String time = buttonTime.getText().toString().trim();
+        String toTime1 = toTime.getText().toString().trim();
 
         String routeId = databaseReference.push().getKey();
 
@@ -112,7 +174,17 @@ public class AddRoute extends AppCompatActivity {
             Toast.makeText(this, "Please Select Bus Condition", Toast.LENGTH_SHORT).show();
             return;
         }
-        Route route = new Route(routeId,from1,to1,price1,date);
+        if (TextUtils.equals(time,"Time")) {
+
+            Toast.makeText(this, "Please Select Bus Condition", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (TextUtils.equals(toTime1,"ToTime")) {
+
+            Toast.makeText(this, "Please Select Bus Condition", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Route route = new Route(routeId,from1,to1,price1,date,time,toTime1);
         FirebaseUser user = firebaseAuth.getCurrentUser();
         databaseReference.child("RouteDetails").child(routeId).setValue(route);
         progressDialog.setMessage("Adding Buses Please Wait...");

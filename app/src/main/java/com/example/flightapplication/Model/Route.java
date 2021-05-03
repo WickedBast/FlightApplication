@@ -6,16 +6,26 @@ public class Route {
     private String to;
     private String price;
     private String date;
+    private String time;
 
     public Route( ) {
     }
 
-    public Route(String routeId, String from, String to, String price, String date) {
+    public Route(String routeId, String from, String to, String price, String date,String time) {
         this.routeId = routeId;
         this.from = from;
         this.to = to;
         this.price = price;
         this.date = date;
+        this.time = time;
+    }
+
+    public String getTime( ) {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getRouteId( ) {

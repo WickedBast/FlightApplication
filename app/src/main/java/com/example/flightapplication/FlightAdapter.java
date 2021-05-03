@@ -39,7 +39,7 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightView
         holder.textViewTo.setText("To: " + route.getTo());
         holder.textViewDate.setText("Date: " + route.getDate());
         holder.textViewPrice.setText("Price: " + route.getPrice());
-
+        holder.textviewTime.setText("Time: " + route.getTime());
 
     }
 
@@ -59,7 +59,7 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightView
 
     public class FlightViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView textViewFrom,textViewTo,textViewDate,textViewPrice;
+        TextView textViewFrom,textViewTo,textViewDate,textViewPrice,textviewTime;
 
 
         public FlightViewHolder(@NonNull View itemView) {
@@ -69,6 +69,7 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightView
             textViewTo = itemView.findViewById(R.id.text_view_to);
             textViewDate = itemView.findViewById(R.id.text_view_date);
             textViewPrice = itemView.findViewById(R.id.text_view_price);
+            textviewTime = itemView.findViewById(R.id.text_view_time);
             itemView.setTag(itemView);
             itemView.setOnClickListener(this);
 

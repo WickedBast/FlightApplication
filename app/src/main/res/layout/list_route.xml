@@ -45,6 +45,20 @@
             android:text="Price: 200"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
 
+        <TextView
+            android:id="@+id/text_view_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="From Time: 12.40"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+        <TextView
+            android:id="@+id/text_view_timeTo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="To Time: 13.40"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
     </LinearLayout>
 
 </RelativeLayout>

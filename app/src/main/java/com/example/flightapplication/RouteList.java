@@ -17,12 +17,12 @@ import java.util.List;
 public class RouteList  extends ArrayAdapter<Route> {
 
     private Activity context;
-    private List<Route> busList;
+    private List<Route> routeList;
 
-    public RouteList(Activity context, List<Route> busList) {
-        super(context, R.layout.list_route, busList);
+    public RouteList(Activity context, List<Route> routeList) {
+        super(context, R.layout.list_route, routeList);
         this.context = context;
-        this.busList = busList;
+        this.routeList = routeList;
     }
 
     @NonNull
@@ -37,14 +37,18 @@ public class RouteList  extends ArrayAdapter<Route> {
         TextView textViewFrom = (TextView) listViewItem.findViewById(R.id.text_view_from);
         TextView textViewTo = (TextView) listViewItem.findViewById(R.id.text_view_to);
         TextView textViewPrice = (TextView) listViewItem.findViewById(R.id.text_view_price);
+        TextView textViewTime = (TextView) listViewItem.findViewById(R.id.text_view_time);
+        TextView textViewToTime = (TextView) listViewItem.findViewById(R.id.text_view_timeTo);
 
 
-        Route bus = busList.get(position);
+        Route route = routeList.get(position);
 
-        textViewDate.setText("Journey Date      : "+bus.getDate());
-        textViewFrom.setText("Route From            : "+bus.getFrom());
-        textViewTo.setText("Route To                : "+bus.getTo());
-        textViewPrice.setText("Route Price    : "+bus.getPrice());
+        textViewDate.setText("Journey Date      : "+route.getDate());
+        textViewFrom.setText("Route From            : "+route.getFrom());
+        textViewTo.setText("Route To                : "+route.getTo());
+        textViewPrice.setText("Route Price    : "+route.getPrice());
+        textViewTime.setText("From Time    : "+route.getTime());
+        textViewToTime.setText("To Time    : "+route.getToTime());
 
         return listViewItem;
     }

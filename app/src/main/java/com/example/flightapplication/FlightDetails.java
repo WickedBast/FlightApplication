@@ -2,65 +2,101 @@ package com.example.flightapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
-
+import android.widget.Button;
+import android.widget.TextView;
 import com.example.flightapplication.Interface.ItemClickListener;
-import com.example.flightapplication.Model.Route;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class FlightDetails extends AppCompatActivity implements ItemClickListener{
+public class FlightDetails extends AppCompatActivity{
 
-    private RecyclerView recyclerView;
-    private ArrayList<Route> routeList;
-    private FlightDetailAdapter adapter;
-    DatabaseReference databaseReference;
-    FirebaseDatabase database;
-    FirebaseAuth firebaseAuth;
+     TextView to,from,date,price,fromTime,toTime;
+     DatabaseReference databaseReference;
+     FirebaseAuth firebaseAuth;
+     Button btnPay;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.flight_details);
 
-        recyclerView = findViewById(R.id.recyclerViewDetails);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        routeList = new ArrayList<>();
-        adapter = new FlightDetailAdapter(this,routeList);
-        recyclerView.setAdapter(adapter);
-        adapter.setClickListener((ItemClickListener) this);
+        to = (TextView) findViewById(R.id.text_view_toDetail);
+        from = (TextView) findViewById(R.id.text_view_fromDetail);
+        date = (TextView) findViewById(R.id.text_view_dateDetail);
+        price = (TextView) findViewById(R.id.text_view_priceDetail);
+        fromTime = (TextView) findViewById(R.id.text_view_fromtimeDetail);
+        toTime = (TextView) findViewById(R.id.text_view_toTimeDetail);
+        btnPay =findViewById(R.id.btn_pay);
 
+/*
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FlightDetails.this,FlightActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+ */
+
+
+
+
+        final String fromm = getIntent().getStringExtra("fromm");
+        final String too = getIntent().getStringExtra("too");
         //Firebase
-        database = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
-        databaseReference = database.getReference("RouteDetails");
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child(user.getUid()).child("FlightDetails");
 
-        String fromFlight = getIntent().getStringExtra("fromm");
-        String toFlight = getIntent().getStringExtra("too");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren())
-                {
-                    Route route = ds.getValue(Route.class);
-                    routeList.add(route);
-                }
-                recyclerView.setAdapter(adapter);
+
+                String flightFrom = dataSnapshot.child("from").getValue().toString();
+                String flightTo = dataSnapshot.child("to").getValue().toString();
+                String flightDate = dataSnapshot.child("date").getValue().toString();
+                String flightPrice = dataSnapshot.child("price").getValue().toString();
+                String flightfromTime = dataSnapshot.child("time").getValue().toString();
+                String flighttoTime = dataSnapshot.child("toTime").getValue().toString();
+
+
+                from.setText("From: " + flightFrom);
+                to.setText("To: " + flightTo);
+                date.setText("Date: " + flightDate);
+                price.setText("Price: " + flightPrice);
+                fromTime.setText("From Time: " + flightfromTime);
+                toTime.setText("To Time: " + flighttoTime );
+
+                btnPay.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Intent intent = new Intent(FlightDetails.this,ChoosePayment.class);
+                        intent.putExtra("price",flightPrice);
+                        startActivity(intent);
+                    }
+                });
+
+
+
+
+
+
+
 
             }
 
@@ -71,13 +107,7 @@ public class FlightDetails extends AppCompatActivity implements ItemClickListene
         });
 
 
+
     }
 
-    @Override
-    public void Onclick(View view, int position) {
-        Route routeDetail = routeList.get(position);
-        Intent intent = new Intent(FlightDetails.this, ChoosePayment.class);
-        intent.putExtra("price", routeDetail.getPrice());
-        startActivity(intent);
-    }
 }

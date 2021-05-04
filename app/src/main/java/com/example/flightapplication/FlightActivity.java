@@ -24,6 +24,7 @@ import com.example.flightapplication.Model.Route;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -252,9 +253,22 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
     public void Onclick(View view, int position) {
 
         Route routeDetail = routeList.get(position);
-        Intent intent = new Intent(FlightActivity.this, FlightDetails.class);
-        intent.putExtra("fromm", fromFlight);
-        intent.putExtra("too", toFlight);
+
+        String routeId = routeDetail.getRouteId();
+        String from = routeDetail.getFrom();
+        String to = routeDetail.getTo();
+        String price = routeDetail.getPrice();
+        String date = routeDetail.getDate();
+        String fromTime = routeDetail.getTime();
+        String toTime = routeDetail.getToTime();
+
+        Route route = new Route(routeId,from,to,price,date,fromTime,toTime);
+        FirebaseUser user1 = firebaseAuth.getCurrentUser();
+        databaseReference.child(user1.getUid()).child("FlightDetails").setValue(route);
+
+        Intent intent = new Intent(FlightActivity.this,FlightDetails.class);
+        intent.putExtra("fromm",from);
+        intent.putExtra("too",to);
         startActivity(intent);
 
 

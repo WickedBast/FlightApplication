@@ -26,7 +26,12 @@ public class Route {
     }
 
     public String getDuration( ) {
-        return String.valueOf(Integer.parseInt(getTo()) - Integer.parseInt(getFrom()));
+        return duration;
+
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 
     public String getToTime( ) {

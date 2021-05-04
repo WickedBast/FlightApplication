@@ -40,6 +40,10 @@ public class AddRoute extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
 
+    Route route;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,6 +147,7 @@ public class AddRoute extends AppCompatActivity {
     }
 
     public void addsRoute() {
+
 
         String date = dateDisplay.getText().toString().trim();
         String from1 = from.getText().toString().trim();

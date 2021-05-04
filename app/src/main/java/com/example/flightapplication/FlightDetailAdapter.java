@@ -43,7 +43,7 @@ public class FlightDetailAdapter extends RecyclerView.Adapter<FlightDetailAdapte
         holder.textViewPrice.setText("Price: " + route.getPrice());
         holder.textviewFromTime.setText("From Time: " + route.getTime());
         holder.textViewtoTime.setText("To Time: " + route.getToTime());
-        holder.textViewDuration.setText("Duration: " + route.getDuration());
+        //holder.textViewDuration.setText("Duration: " + route.getDuration());
     }
 
     @Override
@@ -68,7 +68,7 @@ public class FlightDetailAdapter extends RecyclerView.Adapter<FlightDetailAdapte
             textViewPrice = itemView.findViewById(R.id.text_view_priceDetail);
             textviewFromTime = itemView.findViewById(R.id.text_view_timeDetail);
             textViewtoTime = itemView.findViewById(R.id.text_view_timeToDetail);
-            textViewDuration = itemView.findViewById(R.id.text_view_durationDetail);
+           // textViewDuration = itemView.findViewById(R.id.text_view_durationDetail);
             itemView.setTag(itemView);
             itemView.setOnClickListener(this);
 

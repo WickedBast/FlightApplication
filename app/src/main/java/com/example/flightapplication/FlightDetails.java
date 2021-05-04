@@ -70,6 +70,8 @@ public class FlightDetails extends AppCompatActivity implements ItemClickListene
             }
         });
 
+       ///System.out.println(toFlight);
+
 
     }
 

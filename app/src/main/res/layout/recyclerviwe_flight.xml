@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="150dp"
     >
 
     <androidx.cardview.widget.CardView
@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/busImage"
-            android:layout_width="120dp"
-            android:layout_height="150dp"
+            android:layout_width="132dp"
+            android:layout_height="100dp"
             android:src="@mipmap/ic_launcher" />
 
         <LinearLayout
@@ -62,13 +62,6 @@
                 android:text="200"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
 
-            <TextView
-                android:id="@+id/text_view_toTimeAdapter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="To Time: 12:30"
-                android:visibility="invisible"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
 
         </LinearLayout>
 

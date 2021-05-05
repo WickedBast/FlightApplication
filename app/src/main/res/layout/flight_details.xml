@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/aa"
-    >
+    tools:context=".FlightDetails"
+    android:background="@drawable/aa">
 
     <TextView
         android:id="@+id/txt"
@@ -16,112 +16,17 @@
         android:gravity="center"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:layout_marginBottom="50dp"
-
-        >
+        android:layout_marginBottom="20dp">
 
     </TextView>
 
-
-
-    <RelativeLayout
-        android:id="@+id/rvl"
-        android:layout_marginTop="50dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/txt"
+        android:id="@+id/recyclerViewDetails"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="match_parent">
 
+    </androidx.recyclerview.widget.RecyclerView>
 
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="4dp">
-
-        <ImageView
-            android:id="@+id/busImage"
-            android:layout_width="120dp"
-            android:layout_height="150dp"
-            android:src="@mipmap/ic_launcher" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="140dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/text_view_flightNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="FlightNumber: FFF1234"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
-
-            <TextView
-                android:id="@+id/text_view_fromDetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="From: Jaffna"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
-
-            <TextView
-                android:id="@+id/text_view_toDetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="To: Colombo"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
-            <TextView
-                android:id="@+id/text_view_dateDetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Date: 14/04/2019"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
-            <TextView
-                android:id="@+id/text_view_fromtimeDetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Time: 12:30"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
-            <TextView
-                android:id="@+id/text_view_priceDetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="200"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
-
-            <TextView
-                android:id="@+id/text_view_toTimeDetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="To Time: 12:30"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_below="@+id/rvl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-
-        <Button
-            android:id="@+id/btn_pay"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="30sp"
-            android:text="Buy Tıcket"
-            android:layout_gravity="center"
-            android:gravity="center">
-
-        </Button>
-
-
-    </LinearLayout>
 
 </RelativeLayout>

@@ -39,6 +39,8 @@ public class RouteList  extends ArrayAdapter<Route> {
         TextView textViewPrice = (TextView) listViewItem.findViewById(R.id.text_view_price);
         TextView textViewTime = (TextView) listViewItem.findViewById(R.id.text_view_time);
         TextView textViewToTime = (TextView) listViewItem.findViewById(R.id.text_view_timeTo);
+        TextView textViewDuration = (TextView) listViewItem.findViewById(R.id.text_view_durationRoute);
+
 
 
         Route route = routeList.get(position);
@@ -49,6 +51,9 @@ public class RouteList  extends ArrayAdapter<Route> {
         textViewPrice.setText("Route Price    : "+route.getPrice());
         textViewTime.setText("From Time    : "+route.getTime());
         textViewToTime.setText("To Time    : "+route.getToTime());
+        textViewDuration.setText("Duration: " + route.getDuration());
+
+        System.out.println("Duration: " + route.getDuration());
 
         return listViewItem;
     }

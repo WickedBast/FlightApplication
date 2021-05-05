@@ -85,14 +85,14 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
         if (mSorting.equals("highest")) {
             mLayoutMaganer = new LinearLayoutManager(this);
             //this will load the items from bottom means highest first
-            mLayoutMaganer.setReverseLayout(false);
-            mLayoutMaganer.setStackFromEnd(false);
+            mLayoutMaganer.setReverseLayout(true);
+            mLayoutMaganer.setStackFromEnd(true);
 
         } else if (mSorting.equals("cheapest")) {
             mLayoutMaganer = new LinearLayoutManager(this);
             //this will load the items from bottom means cheapest first
-            mLayoutMaganer.setReverseLayout(true);
-            mLayoutMaganer.setStackFromEnd(true);
+            mLayoutMaganer.setReverseLayout(false);
+            mLayoutMaganer.setStackFromEnd(false);
 
         }
         recyclerView.setLayoutManager(mLayoutMaganer);

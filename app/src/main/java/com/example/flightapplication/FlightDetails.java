@@ -87,6 +87,11 @@ public class FlightDetails extends AppCompatActivity{
 
                         Intent intent = new Intent(FlightDetails.this,ChoosePayment.class);
                         intent.putExtra("price",flightPrice);
+                        intent.putExtra("date",flightDate);
+                        intent.putExtra("from",flightFrom);
+                        intent.putExtra("to",flightTo);
+                        intent.putExtra("fromTime",flightfromTime);
+                        intent.putExtra("toTime",flighttoTime);
                         startActivity(intent);
                     }
                 });

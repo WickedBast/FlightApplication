@@ -182,6 +182,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputPasswordA" />
 
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonTicket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
+        android:background="@drawable/button_bg"
+        android:text="View Ticket"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputPasswordA" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonBackR"
         android:layout_width="50dp"

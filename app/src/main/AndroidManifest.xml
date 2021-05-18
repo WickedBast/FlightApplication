@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FlightApplication">
-        <activity android:name=".FlightDetails"></activity>
+        <activity android:name=".TicketDetailActivity"></activity>
+        <activity android:name=".FinishPaymentActivity" />
+        <activity android:name=".ConfirmActivity" />
+        <activity android:name=".FlightDetails" />
         <activity android:name=".AddAdmin" />
         <activity android:name=".AddRoute" />
         <activity android:name=".ProfilePage" />

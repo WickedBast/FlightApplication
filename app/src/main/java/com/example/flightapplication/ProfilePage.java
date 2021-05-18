@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 public class ProfilePage extends AppCompatActivity {
 
     private Button backMenu;
     private Button saveChanges;
+    AppCompatButton buttonTicket;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -21,6 +23,13 @@ public class ProfilePage extends AppCompatActivity {
 
         saveChanges = (Button) findViewById(R.id.buttonAddR);
         saveChanges.setOnClickListener(v -> saveChange());
+        buttonTicket = findViewById(R.id.buttonTicket);
+        buttonTicket.setOnClickListener(view -> viewTicker());
+    }
+
+    private void viewTicker( ) {
+        Intent intentTicker = new Intent(ProfilePage.this,TicketDetailActivity.class);
+        startActivity(intentTicker);
     }
 
     public void backSearch(){

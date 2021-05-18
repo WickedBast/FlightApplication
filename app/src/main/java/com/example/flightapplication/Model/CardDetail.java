@@ -1,12 +1,12 @@
 package com.example.flightapplication.Model;
 
-public class card {
+public class CardDetail {
     private String bakiye;
 
-    public card(String bakiye){
+    public CardDetail(String bakiye){
         this.bakiye = bakiye;
     }
-    public card(){}
+    public CardDetail(){}
 
     public String getBakiye() {
         return bakiye;

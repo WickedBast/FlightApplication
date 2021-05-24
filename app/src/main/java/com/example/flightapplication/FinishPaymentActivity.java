@@ -62,6 +62,7 @@ public class FinishPaymentActivity extends AppCompatActivity {
 
             }
         });
+        databaseReference.child("status").setValue("Booked");
         buttonViewDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

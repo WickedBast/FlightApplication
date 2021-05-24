@@ -95,7 +95,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         progressDialog.setMessage("Updating Contact Detail Please Wait...");
         progressDialog.show();
 
-        Intent intent=new Intent(ConfirmActivity.this,FinishPaymentActivity.class);
+        Intent intent=new Intent(ConfirmActivity.this,ChoosePayment.class);
         startActivity(intent);
         progressDialog.dismiss();
     }

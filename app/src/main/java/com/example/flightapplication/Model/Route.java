@@ -10,12 +10,13 @@ public class Route {
     private String date;
     private String time;
     private String toTime;
+    private String status;
     private String duration;
 
     public Route( ) {
     }
 
-    public Route(String routeId, String from, String to, String price, String date,String time,String toTime) {
+    public Route(String routeId, String from, String to, String price, String date,String time,String toTime,String status) {
         this.routeId = routeId;
         this.from = from;
         this.to = to;
@@ -23,6 +24,7 @@ public class Route {
         this.date = date;
         this.time = time;
         this.toTime = toTime;
+        this.status = status;
     }
 
     public String getDuration( ) {
@@ -48,6 +50,14 @@ public class Route {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getStatus( ) {
+        return status;
+    }
+
+    public void setStatus(String time) {
+        this.status = status;
     }
 
     public String getRouteId( ) {

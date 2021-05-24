@@ -42,7 +42,7 @@ public class BankAccount extends AppCompatActivity {
             Toast.makeText(BankAccount.this, "Wrong IBAN", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(BankAccount.this, "Payment completed!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(BankAccount.this, UserHomePage.class);
+            Intent intent = new Intent(BankAccount.this, FinishPaymentActivity.class);
             startActivity(intent);
         }
     }

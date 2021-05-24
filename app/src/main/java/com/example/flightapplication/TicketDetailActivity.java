@@ -18,10 +18,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class TicketDetailActivity extends AppCompatActivity {
-    private TextView date,detailFrom,detailTo,fromTime,toTime,routeId,price,ticketDate,i,j,k,l;
+    private TextView date,detailFrom,detailTo,detailStatus,fromTime,toTime,routeId,price,ticketDate,i,j,k,l;
     private DatabaseReference databaseReference1,databaseReference2,databaseReference3;
     private FirebaseAuth firebaseAuth;
-    private Button homeButton;
+    private Button homeButton,cancel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +30,7 @@ public class TicketDetailActivity extends AppCompatActivity {
         date = findViewById(R.id.routeDetailDate1);
         detailFrom = findViewById(R.id.routeDetailFrom1);
         detailTo = findViewById(R.id.roteDetailTo1);
+        detailStatus = findViewById(R.id.status);
         fromTime = findViewById(R.id.bookingDetailFromTime);
         toTime = findViewById(R.id.bookingDetailToTime);
         routeId = findViewById(R.id.bookingDetailrouteId);
@@ -41,6 +42,7 @@ public class TicketDetailActivity extends AppCompatActivity {
         l=(TextView)findViewById(R.id.customerDetailPhone1);
 
         homeButton = findViewById(R.id.ticketDetailbtnHome);
+        cancel = findViewById(R.id.cancelRequest);
         //Firebase
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -55,6 +57,9 @@ public class TicketDetailActivity extends AppCompatActivity {
                 String flightDate = dataSnapshot.child("date").getValue().toString();
                 String flightfrom = dataSnapshot.child("from").getValue().toString();
                 String flightto = dataSnapshot.child("to").getValue().toString();
+                String status = dataSnapshot.child("status").getValue().toString();
+
+
                 String flightfromTime = dataSnapshot.child("time").getValue().toString();
                 String flighttoTime = dataSnapshot.child("toTime").getValue().toString();
                 String flightprice = dataSnapshot.child("price").getValue().toString();
@@ -63,6 +68,7 @@ public class TicketDetailActivity extends AppCompatActivity {
                 date.setText("Date: " + flightDate);
                 detailFrom.setText("From: " +flightfrom);
                 detailTo.setText("To: " + flightto);
+                detailStatus.setText("Status: "+status);
                 fromTime.setText("From Time: " + flightfromTime);
                 toTime.setText("To Time: " + flighttoTime);
                 routeId.setText("Ticket ID: " + flightrouteId);
@@ -100,6 +106,16 @@ public class TicketDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                databaseReference1.child("status").setValue("Approved");
+                Intent intent = new Intent(TicketDetailActivity.this,TicketDetailActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
 
 

@@ -261,8 +261,8 @@ public class FlightActivity extends AppCompatActivity implements ItemClickListen
         String date = routeDetail.getDate();
         String fromTime = routeDetail.getTime();
         String toTime = routeDetail.getToTime();
-
-        Route route = new Route(routeId,from,to,price,date,fromTime,toTime);
+        String status = routeDetail.getStatus();
+        Route route = new Route(routeId,from,to,price,date,fromTime,toTime,status);
         FirebaseUser user1 = firebaseAuth.getCurrentUser();
         databaseReference.child(user1.getUid()).child("FlightDetails").setValue(route);
 

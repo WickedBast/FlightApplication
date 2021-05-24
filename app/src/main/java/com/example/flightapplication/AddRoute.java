@@ -155,7 +155,7 @@ public class AddRoute extends AppCompatActivity {
         String price1 = price.getText().toString().trim();
         String time = buttonTime.getText().toString().trim();
         String toTime1 = toTime.getText().toString().trim();
-
+        String status = "notBooked";
         String routeId = databaseReference.push().getKey();
 
         if (TextUtils.isEmpty(date)) {
@@ -189,7 +189,7 @@ public class AddRoute extends AppCompatActivity {
             Toast.makeText(this, "Please Select Bus Condition", Toast.LENGTH_SHORT).show();
             return;
         }
-        Route route = new Route(routeId,from1,to1,price1,date,time,toTime1);
+        Route route = new Route(routeId,from1,to1,price1,date,time,toTime1,status);
         FirebaseUser user = firebaseAuth.getCurrentUser();
         databaseReference.child("RouteDetails").child(routeId).setValue(route);
         progressDialog.setMessage("Adding Buses Please Wait...");

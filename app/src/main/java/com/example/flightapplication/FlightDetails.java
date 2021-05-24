@@ -80,15 +80,16 @@ public class FlightDetails extends AppCompatActivity{
                 price.setText("Price: " + flightPrice);
                 fromTime.setText("From Time: " + flightfromTime);
                 toTime.setText("To Time: " + flighttoTime );
-
+                String status = "Booked";
                 btnPay.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
-                        Intent intent = new Intent(FlightDetails.this,ChoosePayment.class);
+                        Intent intent = new Intent(FlightDetails.this,ConfirmActivity.class);
                         intent.putExtra("price",flightPrice);
                         intent.putExtra("date",flightDate);
                         intent.putExtra("from",flightFrom);
+                        intent.putExtra("status",status);
                         intent.putExtra("to",flightTo);
                         intent.putExtra("fromTime",flightfromTime);
                         intent.putExtra("toTime",flighttoTime);

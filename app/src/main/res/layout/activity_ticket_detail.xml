@@ -10,6 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentEnd="false"
+        android:layout_marginEnd="0dp"
         android:orientation="vertical">
 
         <!--<ImageView-->
@@ -22,172 +24,197 @@
             android:id="@+id/flightDetailName1"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="Flight İnformations"
-            android:textStyle="bold"
-            android:layout_marginTop="30dp"
-            android:textSize="25dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="10dp"
-            android:textAlignment="center" />
+            android:text="Flight İnformations"
+            android:textAlignment="center"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/routeDetailDate1"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:text="No Booking Data......"
-            android:textSize="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@color/white"/>
+            android:background="@color/white"
+            android:text="No Booking Data......"
+            android:textSize="20dp" />
+
         <TextView
             android:id="@+id/routeDetailFrom1"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:textSize="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:background="@color/white"
             android:text="No Booking Data......"
-            android:background="@color/white"/>
+            android:textSize="20dp" />
+
         <TextView
             android:id="@+id/roteDetailTo1"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:text="No Booking Data......"
-            android:textSize="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@color/white"/>
+            android:background="@color/white"
+            android:text="No Booking Data......"
+            android:textSize="20dp" />
 
 
         <TextView
             android:id="@+id/bookingDetail1"
             android:layout_width="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_height="30dp"
-            android:textSize="20dp"
-            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
             android:gravity="center"
-            android:textAlignment="center"
             android:text="Booking Detail"
-            android:layout_marginTop="20dp"/>
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/bookingDetailFromTime"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:textSize="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:background="@color/white"
             android:text="No Booking Data......"
-            android:background="@color/white"/>
+            android:textSize="20dp" />
+
         <TextView
             android:id="@+id/bookingDetailToTime"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:textSize="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:background="@color/white"
             android:text="No Booking Data......"
-            android:background="@color/white"/>
+            android:textSize="20dp" />
 
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/white"
+            android:text="No Booking Data......"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/ticketDetail"
             android:layout_width="match_parent"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
             android:layout_height="30dp"
-            android:textSize="20dp"
-            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
             android:gravity="center"
-            android:textAlignment="center"
             android:text="Ticket Detail"
-            android:layout_marginTop="20dp"/>
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
 
         <TextView
             android:id="@+id/bookingDetailrouteId"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:textSize="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:background="@color/white"
             android:text="No Booking Data......"
-            android:background="@color/white"/>
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/ticketDetailDate"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:textSize="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:background="@color/white"
             android:text="No Booking Data......"
-            android:background="@color/white"/>
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/ticketDetailPrice"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:textSize="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:background="@color/white"
             android:text="No Booking Data......"
-            android:background="@color/white"/>
-
-
+            android:textSize="20dp" />
 
 
         <TextView
             android:id="@+id/customerDetail1"
             android:layout_width="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_height="30dp"
-            android:textSize="20dp"
-            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
             android:gravity="center"
-            android:textAlignment="center"
             android:text="Customer Detail"
-            android:layout_marginTop="20dp"/>
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/customerDetailName1"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:text="No Booking Data......"
-            android:textSize="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@color/white"/>
+            android:background="@color/white"
+            android:text="No Booking Data......"
+            android:textSize="20dp" />
+
         <TextView
             android:id="@+id/customerDetailEmail1"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:textSize="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:background="@color/white"
             android:text="No Booking Data......"
-            android:background="@color/white"/>
+            android:textSize="20dp" />
+
         <TextView
             android:id="@+id/customerDetailPhone1"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:textSize="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:background="@color/white"
             android:text="No Booking Data......"
-            android:background="@color/white"/>
+            android:textSize="20dp" />
 
         <Button
             android:id="@+id/ticketDetailbtnHome"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:text="Home"
             android:textSize="25dp" />
+
+        <Button
+            android:id="@+id/cancelRequest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:text="CANCEL"
+            android:textSize="25dp" />
+
 
     </LinearLayout>
 
